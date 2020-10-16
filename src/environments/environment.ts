@@ -1,9 +1,17 @@
+import { AppConfig } from './../assets/config/app.config';
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  config: new AppConfig(),
+  production: false,
+  endpoint: {
+    host: 'localhost',
+    schema: 'http',
+    port: 3000,
+    apiVersion: 'api'
+  }
 };
 
 /*

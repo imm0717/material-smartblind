@@ -1,0 +1,50 @@
+.full-width {
+  width: 100%;
+}
+
+.shipping-card {
+  min-width: 120px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin: 2px;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.mat-card {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 40px 40px;
+}
+
+.mat-card-header {
+  justify-content: center;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.remember-password{
+  justify-content: space-between;
+}
