@@ -1,7 +1,11 @@
+import { SignupCredential } from './../../core/models';
+import { AuthenticationService } from './../authentication.service';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import FormComponent from 'src/app/core/components/form.component';
 import { arePasswordsEquals } from 'src/app/core/validators/password.validator';
+import { error } from 'protractor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +16,7 @@ export class RegisterComponent extends FormComponent {
   hide: boolean = true
   confirmHide: boolean = true
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router: Router) {
     super('RegisterForm')
     this.initForm(fb)
   }
@@ -42,7 +46,21 @@ export class RegisterComponent extends FormComponent {
     this.confirmHide = !this.confirmHide
   }
 
+  prepareData(): SignupCredential {
+    let formData = this.formGroup.value
+    return {
+      firstname: formData.firstName,
+      lastname: formData.lastName,
+      email: formData.email,
+      password: formData.passwordGroup.password
+    }
+  }
+
   onSubmit() {
-    console.log(Object.keys(this.formGroup.value))
+    let credential: SignupCredential = this.prepareData()
+    this.authService.signup(credential).subscribe(
+      (data) => this.router.navigate(['']),
+      (error) => console.log(error)
+    )
   }
 }

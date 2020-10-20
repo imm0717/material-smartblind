@@ -1,4 +1,6 @@
+import { AuthenticationService } from './../../authentication/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +11,18 @@ export class AppHeaderComponent implements OnInit {
 
   sideNavOpen: boolean = true
 
-  constructor() { }
+  constructor(private authService: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  onLogout(){
+    this.authService.logout().subscribe(
+      () => {
+        this.router.navigate(['/login'])
+
+      }
+    )
   }
 
   toggleSideNav(){

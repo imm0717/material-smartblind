@@ -60,6 +60,9 @@
                   <div *ngIf="validate('passwordGroup.passwordConfirm').hasError('required')">
                     Confirm Password is <strong>required</strong>
                   </div>
+                  <div *ngIf="validate('passwordGroup.passwordConfirm').hasError('minlength')">
+                    Password require at least <strong>{{ validate('passwordGroup.passwordConfirm').errors.minlength.requiredLength}} characaters</strong>
+                  </div>
                   <div *ngIf="validate('passwordGroup').hasError('passwordMatch')">
                     Confirm Password <strong>mismatch</strong>
                   </div>
@@ -68,7 +71,6 @@
           </div>
         </div>
       </div>
-      
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Submit</button>

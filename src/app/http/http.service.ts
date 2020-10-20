@@ -19,6 +19,8 @@ export class HttpService {
     @Optional() private configService: ConfigurationService,
   ) {
 
+    console.log('HttpService created')
+
     if (this.configService) {
       this.configService.settings$.subscribe((settings) =>
         this.handleSettings(settings)

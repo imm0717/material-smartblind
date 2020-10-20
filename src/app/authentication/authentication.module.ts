@@ -1,3 +1,4 @@
+import { AuthenticationService } from './authentication.service';
 import { MaterialModule } from './../material/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,6 +24,7 @@ import { RegisterComponent } from './register/register.component';
     MatRadioModule,
     MatCardModule,
     ReactiveFormsModule
-  ]
+  ],
+  providers: [AuthenticationService]
 })
 export class AuthenticationModule { }

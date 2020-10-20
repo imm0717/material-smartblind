@@ -18,6 +18,7 @@ export class ErrorHandlerService extends ErrorHandler {
   ) {
     
     super();
+
     this.errorList$ = this.logsService.logEntries$.pipe(
       filter((logEntry: LogEntry) => logEntry.type === LogType.Error)
     );

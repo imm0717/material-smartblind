@@ -1,3 +1,5 @@
+import { HttpModule } from './../http/http.module';
+import { LocalStoreService } from './services/local-store.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
@@ -26,7 +28,8 @@ function appInitializer(consoleWriter: ConsoleWriterService){
     ErrorHandlerModule,
     ConfigurationModule.forRoot({
       config: environment.config
-    })
+    }),
+    HttpModule
   ],
   providers: [
     // Cross-cutting services
@@ -38,12 +41,6 @@ function appInitializer(consoleWriter: ConsoleWriterService){
       useClass: ErrorHandlerService,
       deps: [LogsService, ConfigurationService]
     },
-    /* {
-      provide: HTTP_INTERCEPTORS, 
-      useClass: HttpErrorInterceptor, 
-      deps: [ErrorHandlerService],
-      multi: true 
-    }, */
     {
       provide: HttpService,
       useClass: HttpService,
@@ -55,7 +52,9 @@ function appInitializer(consoleWriter: ConsoleWriterService){
       deps: [LogsService, ConsoleWriterService],
       multi: true
 
-    }/* ,
+    },
+    LocalStoreService
+    /* ,
     UserService,
     JwtService,
     AuthGuard,

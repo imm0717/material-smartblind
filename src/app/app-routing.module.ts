@@ -1,3 +1,5 @@
+import { NoAuthGuard } from './core/guards/no-auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -7,11 +9,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: '', component: AppBodyComponent, children: [
+  { path: '', component: AppBodyComponent, canActivate:[AuthGuard], children: [
     { path: '', component: DashboardComponent }
   ] },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: RegisterComponent }
+  { path: 'login', component: LoginComponent, canActivate:[NoAuthGuard] },
+  { path: 'signup', component: RegisterComponent, canActivate:[NoAuthGuard] }
 ];
 
 @NgModule({
