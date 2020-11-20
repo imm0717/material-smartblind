@@ -1,8 +1,9 @@
-<div class="login-container">
+<div class="mat-form-container">
   <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
     <mat-card class="shipping-card">
-      <mat-card-header>
+      <mat-card-header class="mat-form-header">
         <mat-card-title>Sign In</mat-card-title>
+        <div class="alert danger" *ngIf="showErrorMessage">{{ errorMessage }}</div>
       </mat-card-header>
       <mat-card-content> 
         <div class="row">
@@ -38,7 +39,7 @@
           <a href="#">Forgot password</a>
         </div>
       </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions class="mat-form-actions">
         <button mat-raised-button color="primary" type="submit">Sign In</button>
         <button mat-raised-button color="secondary" type="button" (click)='redirectToSignUp()'>Sign Up</button>
       </mat-card-actions>

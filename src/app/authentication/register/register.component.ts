@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import FormComponent from 'src/app/core/components/form.component';
 import { arePasswordsEquals } from 'src/app/core/validators/password.validator';
-import { error } from 'protractor';
 import { Router } from '@angular/router';
 
 @Component({

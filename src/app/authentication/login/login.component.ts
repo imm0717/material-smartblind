@@ -40,6 +40,8 @@ export class LoginComponent extends FormComponent {
       },
       error => {
         console.log(error)
+        this.errorMessage = error.message
+        this.showErrorMessage = true
       }
     )
   }

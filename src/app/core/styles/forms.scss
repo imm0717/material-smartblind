@@ -1,0 +1,20 @@
+/* Forms styles */
+.mat-form-container {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.mat-form-header {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-form-actions {
+  display: flex !important;
+  justify-content: flex-end;
+}

@@ -1,79 +1,81 @@
-<form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
-  <mat-card class="shipping-card">
-    <mat-card-header>
-      <mat-card-title>Shipping Information</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="First name" formControlName="firstName">
-            <mat-error *ngIf="validate('firstName').hasError('required')">
-              First name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Last name" formControlName="lastName">
-            <mat-error *ngIf="validate('lastName').hasError('required')">
-              Last name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Email" formControlName="email">
-            <mat-error *ngIf="validate('email').hasError('required')">
-              Email is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="validate('email').hasError('email')">
-              Email pattern is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div formGroupName="passwordGroup">
+<div class="mat-form-container">
+  <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+      <mat-card-header class="mat-form-header">
+        <mat-card-title>Sign up</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
-              <button mat-icon-button matSuffix (click)="onTogglePasswordHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="validate('passwordGroup.password').hasError('required')">
-                  Password is <strong>required</strong>
-                </mat-error>
+              <input matInput placeholder="First name" formControlName="firstName">
+              <mat-error *ngIf="validate('firstName').hasError('required')">
+                First name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Last name" formControlName="lastName">
+              <mat-error *ngIf="validate('lastName').hasError('required')">
+                Last name is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
-              <input matInput [type]="confirmHide ? 'password' : 'text'" placeholder="Confirm Password" formControlName="passwordConfirm">
-              <button mat-icon-button matSuffix (click)="onToggleConfirmPasswordHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{confirmHide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="validate('passwordGroup').invalid">
-                  <div *ngIf="validate('passwordGroup.passwordConfirm').hasError('required')">
-                    Confirm Password is <strong>required</strong>
-                  </div>
-                  <div *ngIf="validate('passwordGroup.passwordConfirm').hasError('minlength')">
-                    Password require at least <strong>{{ validate('passwordGroup.passwordConfirm').errors.minlength.requiredLength}} characaters</strong>
-                  </div>
-                  <div *ngIf="validate('passwordGroup').hasError('passwordMatch')">
-                    Confirm Password <strong>mismatch</strong>
-                  </div>
-                </mat-error>
+              <input matInput placeholder="Email" formControlName="email">
+              <mat-error *ngIf="validate('email').hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="validate('email').hasError('email')">
+                Email pattern is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Submit</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+        <div formGroupName="passwordGroup">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
+                <button mat-icon-button matSuffix (click)="onTogglePasswordHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="validate('passwordGroup.password').hasError('required')">
+                    Password is <strong>required</strong>
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput [type]="confirmHide ? 'password' : 'text'" placeholder="Confirm Password" formControlName="passwordConfirm">
+                <button mat-icon-button matSuffix (click)="onToggleConfirmPasswordHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{confirmHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="validate('passwordGroup').invalid">
+                    <div *ngIf="validate('passwordGroup.passwordConfirm').hasError('required')">
+                      Confirm Password is <strong>required</strong>
+                    </div>
+                    <div *ngIf="validate('passwordGroup.passwordConfirm').hasError('minlength')">
+                      Password require at least <strong>{{ validate('passwordGroup.passwordConfirm').errors.minlength.requiredLength}} characaters</strong>
+                    </div>
+                    <div *ngIf="validate('passwordGroup').hasError('passwordMatch')">
+                      Confirm Password <strong>mismatch</strong>
+                    </div>
+                  </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="mat-form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Sign up</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

@@ -6,9 +6,13 @@ import WithValidator from './with-validator.component';
 export default abstract class FormComponent extends BaseComponent implements WithValidator {
 
     public formGroup: FormGroup;
+    public errorMessage: string;
+    public showErrorMessage: boolean
 
     constructor(componentName: string){
         super(componentName)
+        this.errorMessage = ''
+        this.showErrorMessage = false
     }
 
     abstract initForm(fb: FormBuilder): void

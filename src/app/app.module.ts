@@ -1,15 +1,14 @@
-import { AppBodyComponent } from './layouts/app-body/app-body.component';
-import { AppHeaderComponent } from './layouts/app-header/app-header.component';
-import { MaterialModule } from './material/material.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './core/core.module';
+import { AppBodyComponent } from './layouts/app-body/app-body.component';
+import { AppHeaderComponent } from './layouts/app-header/app-header.component';
+import { MaterialModule } from './material/material.module';
 
 
 @NgModule({
@@ -24,8 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     CoreModule,
     MaterialModule,
-    DashboardModule,
-    AuthenticationModule
+    AuthenticationModule,
+    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
