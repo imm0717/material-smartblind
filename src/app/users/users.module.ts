@@ -3,14 +3,31 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 import { MaterialModule } from '../material/material.module';
+import { ProfileComponent } from './profile/profile.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog'; 
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [UsersComponent, ProfileComponent],
+  bootstrap: [ProfileComponent],
   imports: [
     CommonModule,
     MaterialModule,
     UsersRoutingModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    
   ]
 })
 export class UsersModule { }

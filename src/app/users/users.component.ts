@@ -1,3 +1,5 @@
+import { ProfileComponent } from './profile/profile.component';
+import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from './users.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -18,9 +20,16 @@ export class UsersComponent implements AfterViewInit, OnInit {
   dataSource: UsersDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'firstname'];
+  displayedColumns = ['firstname', 'lastname', 'email', 'active', 'actions'];
 
-  constructor(private usersService: UsersService){}
+  constructor(private usersService: UsersService, public dialog: MatDialog){}
+
+  openDialog(){
+    this.dialog.open(ProfileComponent, {
+      width: '800px',
+      height: '600px'
+    })
+  }
 
   ngOnInit() {
     this.dataSource = new UsersDataSource(this.usersService);

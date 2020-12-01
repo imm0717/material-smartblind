@@ -7,43 +7,12 @@ import { SuccessApiResponse } from '../http/api-reponse.model';
 import { User } from './../core/models/user.model';
 import { UsersService } from './users.service';
 
-/* // TODO: Replace this with your own data model type
-export interface UsersItem {
-  name: string;
-  id: number;
-}
-
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: UsersItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
-]; */
-
 /**
  * Data source for the Users view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
 export class UsersDataSource extends DataSource<User> {
-  //data: UsersItem[] = EXAMPLE_DATA;
   data: User[] = [];
   paginator: MatPaginator;
   sort: MatSort;
@@ -65,17 +34,11 @@ export class UsersDataSource extends DataSource<User> {
     // stream for the data-table to consume.
     let usersObservable = this.usersService.getUsers().pipe(
       map( data => {
-        if (data.isSuccess){
-          let successResponse: SuccessApiResponse<User[]> = data as SuccessApiResponse<User[]>
-          this.data = successResponse.data
-          return successResponse.data
-        }
+          this.data = data
+          return data
       })
     )
 
-   /*  this.userServiceSuscription =usersObservable.subscribe(
-      data => this.data = data
-    ) */
     const dataMutations = [
       usersObservable,
       this.paginator.page,
@@ -117,6 +80,8 @@ export class UsersDataSource extends DataSource<User> {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'firstname': return compare(a.profile.firstname, b.profile.firstname, isAsc);
+        case 'lastname': return compare(a.profile.lastname, b.profile.lastname, isAsc);
+        case 'email': return compare(a.email, b.email, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
