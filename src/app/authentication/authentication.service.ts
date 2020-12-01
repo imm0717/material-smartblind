@@ -27,19 +27,16 @@ export class AuthenticationService {
     this.isAuthSubject.next(false)
   }
 
-  login(email: string, password: string): Observable<ApiResponse<Credential>> {
+  login(email: string, password: string): Observable<SuccessApiResponse<Credential>> {
     return this.http.post<Credential>('/auth/login', { email: email, password: password}).pipe(
       map( data => { 
-        if (data.isSuccess){
-          let successResponse: SuccessApiResponse<Credential> = data as SuccessApiResponse<Credential>
-          this.saveCredentials(successResponse.data)
-        }
+        this.saveCredentials(data.data)
         return data
       })
     )
   }
 
-  signup(credential: SignupCredential): Observable<ApiResponse<Credential>>{
+  signup(credential: SignupCredential): Observable<SuccessApiResponse<Credential>>{
     return this.http.post('/users/register', credential).pipe(
       switchMap((registeredUser: SuccessApiResponse<User>) => {
         return this.login(registeredUser.data.email, credential.password)

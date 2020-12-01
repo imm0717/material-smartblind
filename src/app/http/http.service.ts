@@ -4,7 +4,7 @@ import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
 import { IConfiguration, IEndPointConfig, IHttpConfig } from "./../configuration/config/";
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ApiResponse, ErrorApiResponse } from './api-reponse.model';
+import { ApiResponse, ErrorApiResponse, SuccessApiResponse } from './api-reponse.model';
 import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()
@@ -77,7 +77,7 @@ export class HttpService {
     );
   }
 
-  get<T>(uri: string, params?: any | null, header?: object): Observable<ApiResponse<T>> {
+  get<T>(uri: string, params?: any | null, header?: object): Observable<SuccessApiResponse<T>> {
     const options = {};
     if (params) {
       options["params"] = params;
@@ -85,38 +85,38 @@ export class HttpService {
     if (header) {
       options["headers"] = header;
     }
-    return this.httpClient.get<ApiResponse<T>>(this.path(uri), options).pipe(
+    return this.httpClient.get<SuccessApiResponse<T>>(this.path(uri), options).pipe(
       catchError((error: any) => {
         return this.handleError(error)
       })
     );
   }
 
-  post<T>(uri: string, body?: any | null, header?: object): Observable<ApiResponse<T>> {
+  post<T>(uri: string, body?: any | null, header?: object): Observable<SuccessApiResponse<T>> {
     const options = {};
     if (header) {
       options["headers"] = header;
     }
-    return this.httpClient.post<ApiResponse<T>>(this.path(uri), body, options).pipe(
+    return this.httpClient.post<SuccessApiResponse<T>>(this.path(uri), body, options).pipe(
       catchError((error: any) => {
         return this.handleError(error)
       })
     );
   }
 
-  put<T>(uri: string, body?: any | null, header?: object): Observable<ApiResponse<T>> {
+  put<T>(uri: string, body?: any | null, header?: object): Observable<SuccessApiResponse<T>> {
     const options = {};
     if (header) {
       options["headers"] = header;
     }
-    return this.httpClient.put<ApiResponse<T>>(this.path(uri), body, options).pipe(
+    return this.httpClient.put<SuccessApiResponse<T>>(this.path(uri), body, options).pipe(
       catchError((error: any) => {
         return this.handleError(error)
       })
     );
   }
 
-  delete<T>(uri: string, params?: any | null, header?: object): Observable<ApiResponse<T>> {
+  delete<T>(uri: string, params?: any | null, header?: object): Observable<SuccessApiResponse<T>> {
     const options = {};
     if (params) {
       options["params"] = params;
@@ -124,7 +124,7 @@ export class HttpService {
     if (header) {
       options["headers"] = header;
     }
-    return this.httpClient.delete<ApiResponse<T>>(this.path(uri), options).pipe(
+    return this.httpClient.delete<SuccessApiResponse<T>>(this.path(uri), options).pipe(
       catchError((error: any) => {
         return this.handleError(error)
       })
@@ -133,11 +133,9 @@ export class HttpService {
 
   handleError(error: HttpErrorResponse) {
     let errorApiResponse: ErrorApiResponse<any> = new ErrorApiResponse();
-
     errorApiResponse.statusCode = error.status
     errorApiResponse.isSuccess = false;
     errorApiResponse.message = error.message;
-    errorApiResponse.data = error.error;
     errorApiResponse.timestamp = new Date(Date.now())
 
     if (error.error instanceof ErrorEvent) {
@@ -149,6 +147,9 @@ export class HttpService {
         let formattederror = '';
 
         switch (error.status) {
+          case 401:
+            formattederror = `Unauthorized | ${message}`;
+            break;
           case 404:
             formattederror = `Resource not found | ${message}`;
             break;
