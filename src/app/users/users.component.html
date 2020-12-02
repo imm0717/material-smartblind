@@ -1,39 +1,32 @@
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" matSort aria-label="Elements">
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="firstname">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.profile.firstname}}</td>
-    </ng-container>
-
-    <!-- Lastname Column -->
-    <ng-container matColumnDef="lastname">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Lastname</th>
-      <td mat-cell *matCellDef="let row">{{row.profile.lastname}}</td>
-    </ng-container>
-
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell *matCellDef="let row">{{row.email}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="active">
-      <th mat-header-cell *matHeaderCellDef>Active</th>
-      <td mat-cell *matCellDef="let row">{{(row.active) ? 'Activo' : 'Inactivo' }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary" aria-label="Edit" (click)="openDialog()">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" aria-label="Disable">
-          <mat-icon>disabled_by_default</mat-icon>
-        </button>
-      </td>
+    <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}">
+      <div *ngIf="column == 'actions'">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="primary" aria-label="Edit" (click)="row.isEdit = !row.isEdit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" aria-label="Disable">
+            <mat-icon>disabled_by_default</mat-icon>
+          </button>
+        </td>
+      </div>
+      <div *ngIf="column != 'actions'">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column | titlecase }}</th>
+        <td mat-cell *matCellDef="let row">
+          <div></div>
+          <div *ngIf="row.isEdit">
+            <mat-form-field>
+              <input matInput type="{{columnsDataType[column]}}" value="{{(row[column]) ? row[column] : row.profile[column] }}">
+            </mat-form-field>
+          </div>
+          <div *ngIf="!row.isEdit">
+            {{(row[column]) ? row[column] : row.profile[column]}}
+          </div>
+        </td>
+      </div>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

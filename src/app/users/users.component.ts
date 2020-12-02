@@ -21,6 +21,12 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['firstname', 'lastname', 'email', 'active', 'actions'];
+  columnsDataType = {
+    'fistname': 'text',
+    'lastname': 'text',
+    'email': 'email',
+    'active': 'text'
+  }
 
   constructor(private usersService: UsersService, public dialog: MatDialog){}
 
