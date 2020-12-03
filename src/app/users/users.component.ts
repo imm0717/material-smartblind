@@ -30,10 +30,13 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
   constructor(private usersService: UsersService, public dialog: MatDialog){}
 
-  openDialog(){
+  openDialog(profileData){
     this.dialog.open(ProfileComponent, {
       width: '800px',
-      height: '600px'
+      height: '600px',
+      data: {
+        profile: profileData
+      }
     })
   }
 
