@@ -16,6 +16,9 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 const materialModules = [
   MatToolbarModule,
@@ -27,14 +30,16 @@ const materialModules = [
   MatListModule,
   MatMenuModule,
   MatInputModule,
-  MatSelectModule,
+  MatSelectModule,  
   MatRadioModule,
   MatCardModule,
   MatGridListModule,
   LayoutModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatDatepickerModule,
+  MatNativeDateModule
   
 ]
 

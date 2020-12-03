@@ -1,3 +1,4 @@
+import FormComponent from 'src/app/core/components/form.component';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -6,20 +7,29 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
-  addressForm = this.fb.group({
-    company: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
-  });
+export class ProfileComponent extends FormComponent {
+
+  maxDateOfBirth: Date
+
+  initForm(fb: FormBuilder): void {
+
+    this.formGroup = this.fb.group({
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      date_of_birth: [null, Validators.required],
+      address: [null, Validators.required],
+      address2: null,
+      city: [null, Validators.required],
+      state: [null, Validators.required],
+      postalCode: [null, Validators.compose([
+        Validators.required, Validators.minLength(5), Validators.maxLength(5)])
+      ],
+      shipping: ['free', Validators.required]
+    });
+
+    this.maxDateOfBirth = new Date(new Date().getFullYear() - 18, 12, 31)
+  }
 
   hasUnitNumber = false;
 
@@ -85,7 +95,10 @@ export class ProfileComponent {
     {name: 'Wyoming', abbreviation: 'WY'}
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    super('ProfileComponent');
+    this.initForm(fb)
+  }
 
   onSubmit() {
     alert('Thanks!');
