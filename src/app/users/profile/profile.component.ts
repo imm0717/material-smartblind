@@ -1,21 +1,42 @@
+import { ErrorApiResponse, SuccessApiResponse } from './../../http/api-reponse.model';
+import { User } from './../../core/models/user.model';
 import { UsersService } from './../users.service';
 import FormComponent from 'src/app/core/components/form.component';
-import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Gender, Profile } from 'src/app/core/models';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Gender } from 'src/app/core/models';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'user-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  exportAs: 'user-profile'
 })
-export class ProfileComponent extends FormComponent {
+export class ProfileComponent extends FormComponent implements OnInit {
 
-  @Input() data
+  @Input('userId') public userId: number
   maxDateOfBirth: Date
   genders: Gender[] = []
+  private profileData = {
+    id: null,
+    firstname: null,
+    lastname: null,
+    email: null,
+    data_of_birth: null,
+    phone: null,
+    gender: null
+  }
 
-  initForm(fb: FormBuilder): void {
+  constructor(private fb: FormBuilder, private usersService: UsersService) {
+    super('ProfileComponent');
+  }
+  
+  ngOnInit(): void {
+    this.initForm()
+    this.loadUserData(this.userId)
+  }
+
+  initForm(): void {
 
     this.formGroup = this.fb.group({
       firstName: [null, Validators.required],
@@ -33,19 +54,30 @@ export class ProfileComponent extends FormComponent {
     ]
   }
 
-  constructor(private fb: FormBuilder, private usersService: UsersService) {
-    super('ProfileComponent');
-    this.initForm(fb)
-
-    console.log(this.data)
-  }
+  
 
   onSubmit() {
     alert('Thanks!');
   }
 
+  loadUserData(id: number){
+    this.usersService.loadUser(id).subscribe(
+      (response: SuccessApiResponse<User>) => {
+        this.profileData.id = response.data.id
+        this.profileData.firstname = response.data.profile.firstname
+        this.profileData.lastname = response.data.profile.lastname
+        this.profileData.email = response.data.email
+        this.profileData.data_of_birth = response.data.profile.data_of_birth
+        this.profileData.phone = response.data.profile.phone
+        this.profileData.gender = response.data.profile.gender
+        this.formGroup.get('firstName').setValue(this.profileData.firstname)
+      },
+      (error: ErrorApiResponse<User>) => alert(error.message)
+    )
+  }
+
+
   submitProfileData() {
-    //this.usersService.updateUserProfile()
-    
+    console.log('Profile data submited')
   }
 }

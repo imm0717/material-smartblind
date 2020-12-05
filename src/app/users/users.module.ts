@@ -11,11 +11,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog'; 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 
 
 @NgModule({
-  declarations: [UsersComponent, ProfileComponent],
-  bootstrap: [ProfileComponent],
+  declarations: [UsersComponent, ProfileComponent, ProfileDialogComponent],
+  bootstrap: [ProfileDialogComponent],
   imports: [
     CommonModule,
     MaterialModule,

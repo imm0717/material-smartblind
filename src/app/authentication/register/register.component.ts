@@ -17,10 +17,10 @@ export class RegisterComponent extends FormComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthenticationService, private router: Router) {
     super('RegisterForm')
-    this.initForm(fb)
+    this.initForm()
   }
 
-  initForm(fb: FormBuilder) {
+  initForm() {
     this.formGroup = this.fb.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],

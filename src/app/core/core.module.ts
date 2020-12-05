@@ -1,7 +1,8 @@
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HttpModule } from './../http/http.module';
 import { LocalStoreService } from './services/local-store.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
@@ -53,7 +54,10 @@ function appInitializer(consoleWriter: ConsoleWriterService){
       multi: true
 
     },
-    LocalStoreService
+    LocalStoreService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+    }
     /* ,
     UserService,
     JwtService,

@@ -15,7 +15,7 @@ export default abstract class FormComponent extends BaseComponent implements Wit
         this.showErrorMessage = false
     }
 
-    abstract initForm(fb: FormBuilder): void
+    abstract initForm(): void
  
     validate(controlName: string) : AbstractControl {
         return this.formGroup.get(controlName)

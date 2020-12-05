@@ -18,6 +18,10 @@ export class UsersService {
     )
   }
 
+  loadUser(userId: number): Observable<SuccessApiResponse<User>>{
+    return this.http.get('users/' + userId + '/profile')
+  }
+
   updateUserProfile(userId: number, profile: Profile): Observable<SuccessApiResponse<User>>{
     return this.http.put('users/' + userId + '/profile', profile)
   }

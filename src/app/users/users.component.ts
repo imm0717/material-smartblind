@@ -1,4 +1,4 @@
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from './users.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
@@ -31,7 +31,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
   constructor(private usersService: UsersService, public dialog: MatDialog){}
 
   openDialog(profileData){
-    this.dialog.open(ProfileComponent, {
+    this.dialog.open(ProfileDialogComponent, {
       width: '800px',
       height: '600px',
       data: {
