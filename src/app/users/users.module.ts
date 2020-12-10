@@ -12,10 +12,11 @@ import { MatCardModule } from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { AddressComponent } from './address/address.component';
 
 
 @NgModule({
-  declarations: [UsersComponent, ProfileComponent, ProfileDialogComponent],
+  declarations: [UsersComponent, ProfileComponent, ProfileDialogComponent, AddressComponent],
   bootstrap: [ProfileDialogComponent],
   imports: [
     CommonModule,
@@ -27,8 +28,7 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
     MatRadioModule,
     MatCardModule,
     MatDialogModule,
-    ReactiveFormsModule,
-    
+    ReactiveFormsModule
   ]
 })
 export class UsersModule { }

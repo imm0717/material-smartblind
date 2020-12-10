@@ -1,0 +1,13 @@
+<h2>Address</h2>
+<table style="width: 100%;">
+    <tr *ngFor="let item of address">
+        <td>
+            <div class="address-row">
+                <span>{{ item }}</span>
+                <button mat-icon-button color="primary" aria-label="Disable">
+                    <mat-icon>disabled_by_default</mat-icon>
+                  </button>
+            </div>
+        </td>
+    </tr>
+</table>

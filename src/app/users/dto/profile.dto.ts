@@ -13,7 +13,7 @@ export interface ProfileFormData extends RawFormValue{
     gender: number
 }
 export class ProfileDto implements Dto {
-    fromRawToFormData(data: any): ProfileFormData {
+    fromRawToFormData(data: SuccessApiResponse<User>): ProfileFormData {
         let rawData = data as SuccessApiResponse<User>
         return {
             id: rawData.data.id,
@@ -25,15 +25,14 @@ export class ProfileDto implements Dto {
             gender: rawData.data.profile.gender
         }
     }
-    fromFormToRawData(data: any): Profile {
-        let formData = data as ProfileFormData
+    fromFormToRawData(data: ProfileFormData): Profile {
         return {
-            id: formData.id,
-            firstname: formData.firstname,
-            lastname: formData.lastname,
-            date_of_birth: formData.date_of_birth,
-            gender: formData.gender,
-            phone: formData.phone
+            id: data.id,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            date_of_birth: data.date_of_birth,
+            gender: data.gender,
+            phone: data.phone
         }
     }
     

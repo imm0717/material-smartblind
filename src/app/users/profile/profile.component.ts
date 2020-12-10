@@ -22,10 +22,10 @@ export class ProfileComponent extends FormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private usersService: UsersService) {
     super('ProfileComponent');
+    this.initForm()
   }
   
   ngOnInit(): void {
-    this.initForm()
     this.loadUserData(this.userId)
   }
 
