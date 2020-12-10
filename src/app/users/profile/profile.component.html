@@ -8,16 +8,16 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="First name" formControlName="firstName">
-            <mat-error *ngIf="validate('firstName').hasError('required')">
+            <input matInput placeholder="First name" formControlName="firstname">
+            <mat-error *ngIf="validate('firstname').hasError('required')">
               First name is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Last name" formControlName="lastName">
-            <mat-error *ngIf="validate('lastName').hasError('required')">
+            <input matInput placeholder="Last name" formControlName="lastname">
+            <mat-error *ngIf="validate('lastname').hasError('required')">
               Last name is <strong>required</strong>
             </mat-error>
           </mat-form-field>

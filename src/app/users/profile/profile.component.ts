@@ -1,3 +1,4 @@
+import { ProfileDto, ProfileFormData } from './../dto/profile.dto';
 import { ErrorApiResponse, SuccessApiResponse } from './../../http/api-reponse.model';
 import { User } from './../../core/models/user.model';
 import { UsersService } from './../users.service';
@@ -17,15 +18,7 @@ export class ProfileComponent extends FormComponent implements OnInit {
   @Input('userId') public userId: number
   maxDateOfBirth: Date
   genders: Gender[] = []
-  private profileData = {
-    id: null,
-    firstname: null,
-    lastname: null,
-    email: null,
-    data_of_birth: null,
-    phone: null,
-    gender: null
-  }
+  private profileData: ProfileFormData
 
   constructor(private fb: FormBuilder, private usersService: UsersService) {
     super('ProfileComponent');
@@ -39,8 +32,8 @@ export class ProfileComponent extends FormComponent implements OnInit {
   initForm(): void {
 
     this.formGroup = this.fb.group({
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required],
+      firstname: [null, Validators.required],
+      lastname: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       date_of_birth: [null],
       phone: [null, Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')],
@@ -63,14 +56,9 @@ export class ProfileComponent extends FormComponent implements OnInit {
   loadUserData(id: number){
     this.usersService.loadUser(id).subscribe(
       (response: SuccessApiResponse<User>) => {
-        this.profileData.id = response.data.id
-        this.profileData.firstname = response.data.profile.firstname
-        this.profileData.lastname = response.data.profile.lastname
-        this.profileData.email = response.data.email
-        this.profileData.data_of_birth = response.data.profile.data_of_birth
-        this.profileData.phone = response.data.profile.phone
-        this.profileData.gender = response.data.profile.gender
-        this.formGroup.get('firstName').setValue(this.profileData.firstname)
+        this.profileData = new ProfileDto().fromRawToFormData(response)
+        console.log(this.profileData)
+        this.formGroup.patchValue(this.profileData)
       },
       (error: ErrorApiResponse<User>) => alert(error.message)
     )

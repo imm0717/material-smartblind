@@ -1,8 +1,9 @@
-export interface Profile{
+import { Model } from 'src/app/core/models/model';
+export interface Profile extends Model{
     id: number,
     firstname: string,
     lastname: string,
-    data_of_birth?: string,
+    date_of_birth?: string,
     phone?: string,
     gender: number
 }
