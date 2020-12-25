@@ -5,7 +5,8 @@ import { UsersService } from './../users.service';
 import FormComponent from 'src/app/core/components/form.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Gender } from 'src/app/core/models';
+import { Address, Gender } from 'src/app/core/models';
+import { error } from 'protractor';
 
 @Component({
   selector: 'user-profile',
@@ -18,7 +19,7 @@ export class ProfileComponent extends FormComponent implements OnInit {
   @Input('userId') public userId: number
   maxDateOfBirth: Date
   genders: Gender[] = []
-  private profileData: ProfileFormData
+  profileData: ProfileFormData
 
   constructor(private fb: FormBuilder, private usersService: UsersService) {
     super('ProfileComponent');
@@ -50,22 +51,32 @@ export class ProfileComponent extends FormComponent implements OnInit {
   
 
   onSubmit() {
-    alert('Thanks!');
+    return this.saveProfileData()
   }
 
   loadUserData(id: number){
     this.usersService.loadUser(id).subscribe(
       (response: SuccessApiResponse<User>) => {
         this.profileData = new ProfileDto().fromRawToFormData(response)
-        console.log(this.profileData)
         this.formGroup.patchValue(this.profileData)
       },
       (error: ErrorApiResponse<User>) => alert(error.message)
     )
   }
 
-
-  submitProfileData() {
-    console.log('Profile data submited')
+  saveProfileData(){
+    let formData = new ProfileDto().fromFormToRawData(this.formGroup.value)
+    return this.usersService.updateUserProfile(this.userId, formData)
   }
+
+  deleteProfileAddress(address: Address){
+    this.usersService.removeUserAddress(this.profileData.id, address.id).subscribe(
+      () => {
+        let addressIndex = this.profileData.address.indexOf(address);
+        this.profileData.address.splice(addressIndex, 1)
+      },
+      (error) => alert("Error al eliminar Address")
+    )
+  }
+  
 }

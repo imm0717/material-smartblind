@@ -1,10 +1,9 @@
 <h1 mat-dialog-title>Profile</h1>
 <mat-dialog-content>
-    <user-profile [userId]="data.profile.id"></user-profile>
-    <user-address></user-address>
+    <user-profile [userId]="data.profile.id"></user-profile>    
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button >Cancel</button>
+  <button mat-button (click)="close()" >Cancel</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-button (click)="submitProfile()">Delete</button>
 </mat-dialog-actions>

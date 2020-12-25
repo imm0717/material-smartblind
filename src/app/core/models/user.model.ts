@@ -1,3 +1,4 @@
+import { Address } from './address.model';
 import { Model } from './model';
 import { Profile } from './profile.model';
 
@@ -6,4 +7,5 @@ export interface User extends Model{
     email: string
     password: string
     profile: Profile
+    address: Address[]
 }

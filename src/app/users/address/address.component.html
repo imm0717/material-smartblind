@@ -3,8 +3,8 @@
     <tr *ngFor="let item of address">
         <td>
             <div class="address-row">
-                <span>{{ item }}</span>
-                <button mat-icon-button color="primary" aria-label="Disable">
+                <span>{{ item.address1 }}</span>
+                <button mat-icon-button color="primary" aria-label="Disable" (click)="onDelete(item)">
                     <mat-icon>disabled_by_default</mat-icon>
                   </button>
             </div>
