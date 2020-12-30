@@ -13,10 +13,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { AddressComponent } from './address/address.component';
+import { AddressDialogComponent } from './address-dialog/address-dialog.component';
 
 
 @NgModule({
-  declarations: [UsersComponent, ProfileComponent, ProfileDialogComponent, AddressComponent],
+  declarations: [UsersComponent, ProfileComponent, ProfileDialogComponent, AddressComponent, AddressDialogComponent],
   bootstrap: [ProfileDialogComponent],
   imports: [
     CommonModule,

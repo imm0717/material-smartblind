@@ -1,12 +1,10 @@
 import { ProfileDto, ProfileFormData } from './../dto/profile.dto';
 import { ErrorApiResponse, SuccessApiResponse } from './../../http/api-reponse.model';
-import { User } from './../../core/models/user.model';
 import { UsersService } from './../users.service';
 import FormComponent from 'src/app/core/components/form.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Address, Gender } from 'src/app/core/models';
-import { error } from 'protractor';
+import { User, Address, Gender } from 'src/app/core/models';
 
 @Component({
   selector: 'user-profile',
@@ -27,7 +25,7 @@ export class ProfileComponent extends FormComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.loadUserData(this.userId)
+    this.loadProfileData(this.userId)
   }
 
   initForm(): void {
@@ -48,13 +46,11 @@ export class ProfileComponent extends FormComponent implements OnInit {
     ]
   }
 
-  
-
   onSubmit() {
     return this.saveProfileData()
   }
 
-  loadUserData(id: number){
+  loadProfileData(id: number){
     this.usersService.loadUser(id).subscribe(
       (response: SuccessApiResponse<User>) => {
         this.profileData = new ProfileDto().fromRawToFormData(response)
@@ -75,7 +71,7 @@ export class ProfileComponent extends FormComponent implements OnInit {
         let addressIndex = this.profileData.address.indexOf(address);
         this.profileData.address.splice(addressIndex, 1)
       },
-      (error) => alert("Error al eliminar Address")
+      () => alert("Error al eliminar Address")
     )
   }
   

@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>New Address</h1>
+<mat-dialog-content>
+    <form [formGroup]="formGroup" novalidate>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Title" formControlName="fullname">
+                    <mat-error *ngIf="validate('fullname').hasError('required')">
+                      Title is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Address1" formControlName="address1">
+                    <mat-error *ngIf="validate('address1').hasError('required')">
+                      Address1 is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Address2" formControlName="address2">
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Postal Code" formControlName="postalcode">
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="City" formControlName="city">
+                    <mat-error *ngIf="validate('city').hasError('required')">
+                        City is <strong>required</strong>
+                      </mat-error>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Phone" formControlName="phone">
+                  </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()" >Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button (click)="saveAddressData()" >Save</button>
+</mat-dialog-actions>

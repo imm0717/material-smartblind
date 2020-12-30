@@ -68,4 +68,4 @@
     </div>
   </div>
 </form>
-<user-address [address]="profileData.address" (deleteAddress)="deleteProfileAddress($event)"></user-address>
+<user-address [userId]="profileData.id" [address]="profileData.address" (deleteAddress)="deleteProfileAddress($event)"></user-address>
