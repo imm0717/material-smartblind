@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { AddressComponent } from './address/address.component';
 import { AddressDialogComponent } from './address-dialog/address-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AddressDialogComponent } from './address-dialog/address-dialog.componen
     MatRadioModule,
     MatCardModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class UsersModule { }

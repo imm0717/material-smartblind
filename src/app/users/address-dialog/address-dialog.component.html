@@ -54,8 +54,8 @@
         </div>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="close()" >Cancel</button>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="close()" >Cancel</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button (click)="saveAddressData()" >Save</button>
+  <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="saveAddressData()" >Save</button>
 </mat-dialog-actions>

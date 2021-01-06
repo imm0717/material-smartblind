@@ -5,5 +5,5 @@ export interface Profile extends Model{
     lastname: string,
     date_of_birth?: string,
     phone?: string,
-    gender: number
+    genderId: number
 }

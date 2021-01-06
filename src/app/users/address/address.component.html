@@ -1,11 +1,14 @@
 <h2>Address</h2>
 <table style="width: 100%;">
-    <tr>
-        <td><button mat-icon-button color="primary" aria-label="Disable" (click)="openAddressDialog()">
-            Add
-          </button></td>
-    </tr>
-    <tr *ngFor="let item of address">
+    <th colspan="2">
+            <div class="new-btn-container">
+                <button mat-raised-button color="primary" aria-label="Disable" (click)="openAddressDialog()">
+                    New
+                  </button>
+            </div>
+    </th>
+    <tr *ngFor="let item of address; let i=index">
+        <td> {{ i+1 }}</td>
         <td>
             <div class="address-row">
                 <span>{{ item.address1 }}</span>

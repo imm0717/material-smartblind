@@ -5,12 +5,13 @@ import FormComponent from 'src/app/core/components/form.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User, Address, Gender } from 'src/app/core/models';
+import { delay, map } from 'rxjs/operators';
 
 @Component({
   selector: 'user-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  exportAs: 'user-profile'
+  exportAs: 'userProfile'
 })
 export class ProfileComponent extends FormComponent implements OnInit {
 
@@ -18,6 +19,8 @@ export class ProfileComponent extends FormComponent implements OnInit {
   maxDateOfBirth: Date
   genders: Gender[] = []
   profileData: ProfileFormData
+  public invalid: boolean = true
+  public loadingData: boolean = true
 
   constructor(private fb: FormBuilder, private usersService: UsersService) {
     super('ProfileComponent');
@@ -41,9 +44,17 @@ export class ProfileComponent extends FormComponent implements OnInit {
 
     this.maxDateOfBirth = new Date(new Date().getFullYear() - 18, 12, 31)
     this.genders = [
-      {id: 1, gender: 'Female', active: true},
-      {id: 2, gender: 'Male', active: true},
+      {id: 1, gender: 'Male', active: true},
+      {id: 2, gender: 'Female', active: true},
     ]
+
+    this.formGroup.statusChanges.pipe(
+      map((status) => {
+        return (status != 'VALID') ? true : false
+      })
+    ).subscribe(
+      (status) => this.invalid = status
+    )
   }
 
   onSubmit() {
@@ -53,7 +64,9 @@ export class ProfileComponent extends FormComponent implements OnInit {
   loadProfileData(id: number){
     this.usersService.loadUser(id).subscribe(
       (response: SuccessApiResponse<User>) => {
+        this.loadingData = false
         this.profileData = new ProfileDto().fromRawToFormData(response)
+        console.log(this.profileData)
         this.formGroup.patchValue(this.profileData)
       },
       (error: ErrorApiResponse<User>) => alert(error.message)
@@ -73,6 +86,10 @@ export class ProfileComponent extends FormComponent implements OnInit {
       },
       () => alert("Error al eliminar Address")
     )
+  }
+
+  addProfileAddress(address: Address){
+    this.profileData.address.push(address)
   }
   
 }

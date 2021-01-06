@@ -1,3 +1,5 @@
+import { Address } from 'src/app/core/models';
+import { SuccessApiResponse } from 'src/app/http/api-reponse.model';
 import { UsersService } from './../users.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import FormComponent from 'src/app/core/components/form.component';
@@ -30,7 +32,7 @@ export class AddressDialogComponent extends FormComponent implements OnInit {
   saveAddressData(){
     let data = this.formGroup.value
     this.userService.addUserAddress(this.data.userId, data).subscribe(
-      () => this.close(),
+      (result: SuccessApiResponse<Address>) => this.close(result.data),
       (error) => alert(error)
 
     )
@@ -39,8 +41,8 @@ export class AddressDialogComponent extends FormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  close(){
-    this.matDialogRef.close()
+  close(data?: any){
+    (data) ? this.matDialogRef.close(data) : this.matDialogRef.close()
   }
 
 }

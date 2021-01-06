@@ -1,71 +1,74 @@
-<form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
-  <h2>Personal Info</h2>
-  <div class="row">
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="First name" formControlName="firstname">
-        <mat-error *ngIf="validate('firstname').hasError('required')">
-          First name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+<app-loader *ngIf="loadingData"></app-loader>
+<div *ngIf="!loadingData">
+  <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
+    <h2>Personal Info</h2>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="First name" formControlName="firstname">
+          <mat-error *ngIf="validate('firstname').hasError('required')">
+            First name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Last name" formControlName="lastname">
+          <mat-error *ngIf="validate('lastname').hasError('required')">
+            Last name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
     </div>
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Last name" formControlName="lastname">
-        <mat-error *ngIf="validate('lastname').hasError('required')">
-          Last name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="validate('email').hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="validate('email').hasError('email')">
+            Email pattern is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Email" formControlName="email">
-        <mat-error *ngIf="validate('email').hasError('required')">
-          Email is <strong>required</strong>
-        </mat-error>
-        <mat-error *ngIf="validate('email').hasError('email')">
-          Email pattern is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="picker" [max]="maxDateOfBirth" formControlName="date_of_birth" readonly>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <mat-form-field class="full-width">
-        <mat-label>Date of Birth</mat-label>
-        <input matInput [matDatepicker]="picker" [max]="maxDateOfBirth" formControlName="date_of_birth" readonly>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Phone number</mat-label>
+          <input matInput placeholder="+(xxx)-xxx-xx-xx" formControlName="phone">
+          <mat-error *ngIf="validate('phone').hasError('pattern')">
+            Phone number pattern is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <mat-form-field class="full-width">
-        <mat-label>Phone number</mat-label>
-        <input matInput placeholder="+(xxx)-xxx-xx-xx" formControlName="phone">
-        <mat-error *ngIf="validate('phone').hasError('pattern')">
-          Phone number pattern is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option *ngFor="let genderData of genders" [value]="genderData.id">
+              {{genderData.gender}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="validate('gender').hasError('required')">
+            Gender is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <mat-form-field class="full-width">
-        <mat-label>Gender</mat-label>
-        <mat-select formControlName="gender">
-          <mat-option *ngFor="let genderData of genders" [value]="genderData.id">
-            {{genderData.gender}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="validate('gender').hasError('required')">
-          Gender is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </div>
-  </div>
-</form>
-<user-address [userId]="profileData.id" [address]="profileData.address" (deleteAddress)="deleteProfileAddress($event)"></user-address>
+  </form>
+  <user-address [userId]="profileData.id" [address]="profileData.address" (deleteAddress)="deleteProfileAddress($event)" (addAddress)="addProfileAddress($event)"></user-address>
+</div>

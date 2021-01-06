@@ -9,6 +9,8 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class ProfileDialogComponent implements OnInit, AfterViewInit {
 
+  loadContent: boolean = false
+
   @ViewChild(ProfileComponent) private profileComponent: ProfileComponent
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ProfileDialogComponent>) { }

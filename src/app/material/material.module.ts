@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 
 const materialModules = [
@@ -39,7 +40,8 @@ const materialModules = [
   MatPaginatorModule,
   MatSortModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatProgressSpinnerModule
   
 ]
 

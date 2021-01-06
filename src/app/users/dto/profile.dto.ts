@@ -25,7 +25,7 @@ export class ProfileDto implements Dto {
             email: rawData.data.email,
             date_of_birth: rawData.data.profile.date_of_birth,
             phone: rawData.data.profile.phone,
-            gender: rawData.data.profile.gender,
+            gender: rawData.data.profile.genderId,
             address: rawData.data.address 
         }
     }
@@ -40,7 +40,7 @@ export class ProfileDto implements Dto {
             firstname: data.firstname,
             lastname: data.lastname,
             date_of_birth: result_date,
-            gender: data.gender,
+            genderId: data.gender,
             phone: data.phone
         }
     }

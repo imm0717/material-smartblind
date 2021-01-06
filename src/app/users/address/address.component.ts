@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { Address } from 'src/app/core/models';
-import { AddressDialogComponent } from '../address-dialog/address-dialog.component';
+import { AddressDialogComponent } from './../address-dialog/address-dialog.component';
 
 @Component({
   selector: 'user-address',
@@ -10,12 +10,11 @@ import { AddressDialogComponent } from '../address-dialog/address-dialog.compone
 })
 export class AddressComponent implements OnInit {
 
+  private dialogRef: MatDialogRef<AddressDialogComponent>
   @Input() userId: number
   @Input() address: Address[]
   @Output() deleteAddress: EventEmitter<Address> = new EventEmitter()
-
-  /* address: String[] = ['Calle canal #3310 e/ 12 y 14, Rpto Antonio Maceo, Cerro',
-    'Calle I e/ 23 y 25 #32310, Vedado, Plaza'] */
+  @Output() addAddress: EventEmitter<Address> = new EventEmitter()
 
   constructor(public dialog: MatDialog) { }
 
@@ -28,6 +27,7 @@ export class AddressComponent implements OnInit {
   }
 
   openAddressDialog(){
+    
     let dialogConfig: MatDialogConfig = {
       width: '500px',
       height: '500px',
@@ -36,7 +36,18 @@ export class AddressComponent implements OnInit {
       }
     }
 
-    this.dialog.open(AddressDialogComponent, dialogConfig)
+    this.dialogRef = this.dialog.open(AddressDialogComponent, dialogConfig)
+    this.dialogRef.afterClosed().subscribe(
+      (result: Address) => {
+        if (result)
+          this.onAdd(result)
+      },
+      (error) => alert(error)
+    )
+  }
+
+  onAdd(address: Address) {
+    this.addAddress.emit(address)
   }
 
 }
