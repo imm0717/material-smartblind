@@ -13,6 +13,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class AddressDialogComponent extends FormComponent implements OnInit {
   
+  isLoading: boolean = false
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private matDialogRef: MatDialogRef<AddressDialogComponent>, private fb: FormBuilder, private userService: UsersService) {
     super('AddressComponent')
     this.initForm()
@@ -31,9 +33,16 @@ export class AddressDialogComponent extends FormComponent implements OnInit {
 
   saveAddressData(){
     let data = this.formGroup.value
+    this.isLoading = true
     this.userService.addUserAddress(this.data.userId, data).subscribe(
-      (result: SuccessApiResponse<Address>) => this.close(result.data),
-      (error) => alert(error)
+      (result: SuccessApiResponse<Address>) => {
+        this.isLoading = false
+        this.close(result.data)
+      },
+      (error) => { 
+        this.isLoading = false 
+        alert(error)
+      }
 
     )
   }

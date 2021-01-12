@@ -9,7 +9,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class ProfileDialogComponent implements OnInit, AfterViewInit {
 
-  loadContent: boolean = false
+  isLoading: boolean
 
   @ViewChild(ProfileComponent) private profileComponent: ProfileComponent
 
@@ -22,9 +22,15 @@ export class ProfileDialogComponent implements OnInit, AfterViewInit {
   }
 
   submitProfile(){
+    this.isLoading = true
     this.profileComponent.onSubmit().subscribe(
-      () => this.close(),
-      (error) => alert('Error Saving data')
+      () => { 
+        this.isLoading = false
+        this.close()
+      },
+      (error) => {
+        this.profileComponent.isLoading = false
+        alert('Error Saving data')}
     )
   }
 

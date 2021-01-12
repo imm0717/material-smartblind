@@ -2,10 +2,10 @@ import { ProfileDto, ProfileFormData } from './../dto/profile.dto';
 import { ErrorApiResponse, SuccessApiResponse } from './../../http/api-reponse.model';
 import { UsersService } from './../users.service';
 import FormComponent from 'src/app/core/components/form.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User, Address, Gender } from 'src/app/core/models';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'user-profile',
@@ -13,14 +13,14 @@ import { delay, map } from 'rxjs/operators';
   styleUrls: ['./profile.component.scss'],
   exportAs: 'userProfile'
 })
-export class ProfileComponent extends FormComponent implements OnInit {
+export class ProfileComponent extends FormComponent implements OnInit{
 
   @Input('userId') public userId: number
   maxDateOfBirth: Date
   genders: Gender[] = []
   profileData: ProfileFormData
   public invalid: boolean = true
-  public loadingData: boolean = true
+  public isLoading: boolean
 
   constructor(private fb: FormBuilder, private usersService: UsersService) {
     super('ProfileComponent');
@@ -58,16 +58,17 @@ export class ProfileComponent extends FormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isLoading = true
     return this.saveProfileData()
   }
 
   loadProfileData(id: number){
+    this.isLoading = true
     this.usersService.loadUser(id).subscribe(
       (response: SuccessApiResponse<User>) => {
-        this.loadingData = false
         this.profileData = new ProfileDto().fromRawToFormData(response)
-        console.log(this.profileData)
         this.formGroup.patchValue(this.profileData)
+        this.isLoading = false
       },
       (error: ErrorApiResponse<User>) => alert(error.message)
     )
@@ -79,12 +80,17 @@ export class ProfileComponent extends FormComponent implements OnInit {
   }
 
   deleteProfileAddress(address: Address){
+    this.isLoading = true
     this.usersService.removeUserAddress(this.profileData.id, address.id).subscribe(
       () => {
         let addressIndex = this.profileData.address.indexOf(address);
         this.profileData.address.splice(addressIndex, 1)
+        this.isLoading = false
       },
-      () => alert("Error al eliminar Address")
+      () => {
+        this.isLoading = false
+        alert("Error al eliminar Address")
+      }
     )
   }
 

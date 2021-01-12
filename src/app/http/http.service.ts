@@ -4,7 +4,7 @@ import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
 import { IConfiguration, IEndPointConfig, IHttpConfig } from "./../configuration/config/";
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ApiResponse, ErrorApiResponse, SuccessApiResponse } from './api-reponse.model';
+import { ErrorApiResponse, SuccessApiResponse } from './api-reponse.model';
 import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()

@@ -1,5 +1,3 @@
-<app-loader *ngIf="loadingData"></app-loader>
-<div *ngIf="!loadingData">
   <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
     <h2>Personal Info</h2>
     <div class="row">
@@ -71,4 +69,4 @@
     </div>
   </form>
   <user-address [userId]="profileData.id" [address]="profileData.address" (deleteAddress)="deleteProfileAddress($event)" (addAddress)="addProfileAddress($event)"></user-address>
-</div>
+  

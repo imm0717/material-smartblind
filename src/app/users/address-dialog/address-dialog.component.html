@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>New Address</h1>
 <mat-dialog-content>
-    <form [formGroup]="formGroup" novalidate>
+    <form [formGroup]="formGroup"novalidate>
         <div class="row">
             <div class="col">
                 <mat-form-field class="full-width">
@@ -59,3 +59,4 @@
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="saveAddressData()" >Save</button>
 </mat-dialog-actions>
+<app-loader *ngIf="isLoading"></app-loader>
