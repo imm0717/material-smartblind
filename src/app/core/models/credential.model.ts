@@ -1,4 +1,5 @@
 export interface Credential{
-    email: string
+    email: string,
+    exp: number,
     token: string
 }

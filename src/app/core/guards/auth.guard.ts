@@ -20,7 +20,10 @@ export class AuthGuard implements CanActivate {
 
     this.isAuth$ = this.localStore.get('credential')
     this.isAuth$.subscribe(
-      (credential) => this.isAuth = (credential.token) ? true : false,
+      (credential) => {
+        let { exp,token } = credential
+        this.isAuth = (token && (Math.ceil(Date.now() / 1000) <= exp) ) ? true : false
+      },
       () => this.isAuth = false
     )
 
